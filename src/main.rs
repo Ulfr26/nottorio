@@ -46,16 +46,9 @@ impl Default for Player {
 fn setup(mut commands: Commands, server: Res<AssetServer>) {
     let coal_ore = server.load("sprites/coal_ore.png");
     let player = server.load("sprites/ralsei deltarune.png");
+    let effigy = server.load("sprites/effigy.png");
+    let me = server.load("sprites/looner.png");
     commands.spawn_bundle(Camera2dBundle::default());
-
-    // Player Sprite (for draw order testing)
-    commands
-        .spawn_bundle(SpriteBundle {
-            texture: player.clone(),
-            transform: Transform::from_xyz(-100., -200., 1.),
-            ..default()
-        })
-        .insert(DrawLayer::new(2));
 
     // Player
     commands
@@ -65,6 +58,24 @@ fn setup(mut commands: Commands, server: Res<AssetServer>) {
             ..default()
         })
         .insert(Player::default())
+        .insert(DrawLayer::new(2));
+
+    // Gravestone
+    commands
+        .spawn_bundle(SpriteBundle {
+            texture: effigy,
+            transform: Transform::from_xyz(-124., -213., 1.),
+            ..default()
+        })
+        .insert(DrawLayer::new(2));
+
+    // Me
+    commands
+        .spawn_bundle(SpriteBundle {
+            texture: me,
+            transform: Transform::from_xyz(0., 0., 1.),
+            ..default()
+        })
         .insert(DrawLayer::new(2));
 
     // Test Ore
